@@ -209,6 +209,10 @@ table.cv tr td:first-child{
     border-bottom: 1px solid #ccc;
 }
 
+.row:hover {
+    cursor: pointer;
+}
+
 /* === Footer === */
 
 footer p {
