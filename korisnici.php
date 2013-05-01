@@ -9,7 +9,15 @@
 		public static function dajKorisnika($id)
 		{
 			$svi = self::dajSve();
-			return $svi[$id-1];
+			$korisni = NULL;
+			//$korisni = $svi[$id-1]; //radi samo ukoliko se ne brišu podatci!
+			foreach ($svi as $k) {
+				if($k['id_korisnik']==$id){
+					$korisni = $k;
+					break;
+				}
+			}
+			return $korisni;
 		}
 
 		public static function spremi($korisnik){
@@ -35,9 +43,10 @@
 			$svi = self::dajSve();
 			$id = $svi[count($svi)-1]['id_korisnik']+1;
 			$korisnik['id_korisnik'] = $id;
-			unset($korisnik['spremi']);			
+			unset($korisnik['novi']);			
 			array_push($svi, $korisnik);
 			file_put_contents('podaci/korisnici_novi.json', json_encode($svi));
+			print_r($korisnik);
 			header('Location: kdomic_tablica.php');
 		}
 
