@@ -242,3 +242,7 @@ function btnJSON(){
         $('#tablica').dataTable();
     });
 }
+
+function editJSONuser(id){
+    window.open("korisnici_uredi.php?id="+id, "_self");
+}
