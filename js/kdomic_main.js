@@ -246,3 +246,10 @@ function btnJSON(){
 function editJSONuser(id){
     window.open("korisnici_uredi.php?id="+id, "_self");
 }
+
+function initIspis(id){
+    var dataTable = $('#sviKorisnici').dataTable();
+    dataTable.$('tr').addClass("row").click(function(){
+        window.open("kdomic_ispis.php?id="+dataTable.fnGetData(this)[0], "_self");
+    });
+}

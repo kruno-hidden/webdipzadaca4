@@ -18,8 +18,7 @@
 				foreach ($korisnici as $key => $value)
 					$data[] = "{$key}='{$value}'";				
 				$sql  = "UPDATE korisnici SET " . join(", ", $data);
-				$sql .= "WHERE id={$korisnici['id']}";
-				print_r($sql);
+				$sql .= " WHERE id={$korisnici['id']}";
 				$database->update_by_sql($sql);
 				echo "Aktivirano!";
 			} else { 

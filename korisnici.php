@@ -3,26 +3,24 @@
 	class KorisnikJSON {
 		public static function dajSve()
 		{
-			return json_decode(file_get_contents('podaci/korisnici_novi.json'),true);
+			$_json = json_decode(file_get_contents('podaci/korisnici_novi.json'),true);
+			$json = array();
+			foreach ($_json as $value){
+				$key = (int)$value['id_korisnik'];
+				$json[$key] = $value;
+			}
+			return $json;
 		}
 
 		public static function dajKorisnika($id)
 		{
 			$svi = self::dajSve();
-			$korisni = NULL;
-			//$korisni = $svi[$id-1]; //radi samo ukoliko se ne brišu podatci
-			foreach ($svi as $k) {
-				if($k['id_korisnik']==$id){
-					$korisni = $k;
-					break;
-				}
-			}
-			return $korisni;
+			return $svi[$id];
 		}
 
 		public static function spremi($korisnik){
 			$svi = self::dajSve();
-			$id = $korisnik['id_korisnik']-1;
+			$id = $korisnik['id_korisnik'];
 			unset($korisnik['spremi']);
 			foreach ($korisnik as $key => $value) {
 				$svi[$id][$key] = $value;
@@ -33,7 +31,7 @@
 
 		public static function obrisi($korisnik){
 			$svi = self::dajSve();
-			$id = $korisnik['id_korisnik']-1;
+			$id = $korisnik['id_korisnik'];
 			unset($svi[$id]);
 			file_put_contents('podaci/korisnici_novi.json', json_encode($svi));
 			header('Location: kdomic_tablica.php');
@@ -41,7 +39,7 @@
 
 		public static function novi($korisnik){
 			$svi = self::dajSve();
-			$id = $svi[count($svi)-1]['id_korisnik']+1;
+			$id = $svi[count($svi)]['id_korisnik']+1;
 			$korisnik['id_korisnik'] = $id;
 			unset($korisnik['novi']);			
 			array_push($svi, $korisnik);
