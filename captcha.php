@@ -1,7 +1,9 @@
+<?php session_start(); ?>
 <?php
 	$captcha = "";
 	for ($i=0; $i < 5; $i++)
 		$captcha .= chr(rand(97,122));
+	$_SESSION['captcha'] = $captcha;
 	$image = imagecreatetruecolor(170, 60);
 	$txt = imagecolorallocate($image, 255, 10, 10);
 	$back = imagecolorallocate($image, 255, 255, 255);

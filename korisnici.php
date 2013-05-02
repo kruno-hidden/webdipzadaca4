@@ -10,7 +10,7 @@
 		{
 			$svi = self::dajSve();
 			$korisni = NULL;
-			//$korisni = $svi[$id-1]; //radi samo ukoliko se ne brišu podatci!
+			//$korisni = $svi[$id-1]; //radi samo ukoliko se ne brišu podatci
 			foreach ($svi as $k) {
 				if($k['id_korisnik']==$id){
 					$korisni = $k;
