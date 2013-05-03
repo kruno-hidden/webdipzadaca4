@@ -1,0 +1,4 @@
+AuthType Basic
+AuthUserFile /var/www/WebDiP/2012/vjezba_05/kdomic/privatno/.htpasswd
+AuthName "Administracija sustava"
+Require valid-user

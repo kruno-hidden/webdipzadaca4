@@ -38,13 +38,13 @@
 		}
 
 		public static function novi($korisnik){
-			$svi = self::dajSve();
-			$id = $svi[count($svi)]['id_korisnik']+1;
+			$svi = self::dajSve();			
+			$last = end($svi);
+			$id = $last['id_korisnik']+1;
 			$korisnik['id_korisnik'] = $id;
 			unset($korisnik['novi']);			
 			array_push($svi, $korisnik);
 			file_put_contents('podaci/korisnici_novi.json', json_encode($svi));
-			print_r($korisnik);
 			header('Location: kdomic_tablica.php');
 		}
 

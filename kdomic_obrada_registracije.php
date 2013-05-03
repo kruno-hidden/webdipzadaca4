@@ -1,7 +1,10 @@
-<?php session_start(); ?>                    
-<?php require("privatno/korisnici.php"); ?>
+<?php session_start(); ?>
+<?php
+
+?>
 <?php
 	if(isset($_GET['potvrda'])){
+		require_once("privatno/korisnici.php");
 		$database = new KorisnikBAZA(); 
 		$korisnici = $database->find_by_sql("SELECT * FROM korisnici WHERE email_potvrda='".$_GET['potvrda']."'");
 		$korisnici = array_pop($korisnici);
@@ -25,13 +28,17 @@
 				echo "Vrijeme za registraciju isteklo";
 			}
 		}		
-
 	} else {
-		if($_POST['captcha']!=$_SESSION['captcha'])
+		if($_POST['captcha']!=$_SESSION['captcha']){
 			header('Location: kdomic_register.php?error=1');
+			exit();
+		}
 		preg_match('/[a-zA-Z0-9]{3,}@foi.hr/', $_POST['email'], $matches);
-		if(!$matches)
+		if(!$matches){
 			header('Location: kdomic_register.php?error=2');
+			exit();
+		}
+		require_once("privatno/korisnici.php");		
 		$database = new KorisnikBAZA();
 		$email_potvrda = md5(uniqid(rand(), true));
 		$query  = "INSERT INTO korisnici ";
@@ -41,8 +48,7 @@
 
 		$to = $_POST['email'];
 		$subject = "Registracija";
-		$message  = 'Pozdrav korisniče! ';
-		$message .=	'Aktiviraj se: ';
+		$message  =	'Aktiviraj se: ';
 		$message .= 'http://arka.foi.hr/WebDiP/2012/vjezba_05/kdomic/kdomic_obrada_registracije.php?potvrda='.$email_potvrda;
 		$from = "kdomic@foi.hr";
 		$headers = "From:" . $from;
